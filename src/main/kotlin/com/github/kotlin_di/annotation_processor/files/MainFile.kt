@@ -1,13 +1,13 @@
-package com.kotlin_di.annotation_processor.files
+package com.github.kotlin_di.annotation_processor.files
 
-import com.kotlin_di.common.plugins.IPlugin
+import com.github.kotlin_di.common.plugins.IPlugin
 import com.squareup.kotlinpoet.*
 
 class MainFile(packageName: String, private val className: String) : IFile(packageName, className) {
 
     private val importList = mutableListOf(
-        ClassName("com.kotlin_di", "resolve"),
-        ClassName("com.kotlin_di.common.command", "Command")
+        ClassName("com.github.kotlin_di", "resolve"),
+        ClassName("com.github.kotlin_di.common.command", "Command")
     )
 
     private var loadScript = ""

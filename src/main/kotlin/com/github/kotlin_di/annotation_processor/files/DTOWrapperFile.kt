@@ -1,10 +1,10 @@
-package com.kotlin_di.annotation_processor.files
+package com.github.kotlin_di.annotation_processor.files
 
+import com.github.kotlin_di.common.annotations.Transform
+import com.github.kotlin_di.common.annotations.Validate
+import com.github.kotlin_di.common.`object`.UObject
 import com.google.devtools.ksp.symbol.KSAnnotation
 import com.google.devtools.ksp.symbol.KSPropertyDeclaration
-import com.kotlin_di.common.annotations.Transform
-import com.kotlin_di.common.annotations.Validate
-import com.kotlin_di.common.`object`.UObject
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.toTypeName
 
@@ -124,8 +124,8 @@ class DTOWrapperFile(packageName: String, private val className: ClassName) : IF
 
     override fun build(file: FileSpec.Builder): FileSpec {
         return file.apply {
-            addImport("com.kotlin_di", "resolve")
-            addImport("com.kotlin_di.common.validation", "ValidationError")
+            addImport("com.github.kotlin_di", "resolve")
+            addImport("com.github.kotlin_di.common.validation", "ValidationError")
             addType(
                 TypeSpec.classBuilder("${className.simpleName}Wrapper").apply {
                     primaryConstructor(

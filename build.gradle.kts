@@ -10,7 +10,7 @@ plugins {
     id("me.qoomon.git-versioning") version "6.3.0"
 }
 
-group = "com.kotlin_di"
+group = "com.github.kotlin_di"
 version = "0.0.0-SNAPSHOT"
 gitVersioning.apply {
     refs {
@@ -42,8 +42,8 @@ val kotlinPoetVersion: String by project
 val kspVersion: String by project
 
 dependencies {
-    implementation("com.github.Kotlin-DI:common:0.0.2")
-    implementation("com.github.Kotlin-DI:ioc:0.0.1")
+    implementation("com.github.Kotlin-DI:common:0.0.3")
+    implementation("com.github.Kotlin-DI:ioc:0.0.3")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     implementation("com.squareup:kotlinpoet:$kotlinPoetVersion")

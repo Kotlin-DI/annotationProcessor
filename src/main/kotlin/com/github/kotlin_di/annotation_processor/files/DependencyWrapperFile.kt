@@ -1,7 +1,7 @@
-package com.kotlin_di.annotation_processor.files
+package com.github.kotlin_di.annotation_processor.files
 
+import com.github.kotlin_di.common.`object`.UObject
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
-import com.kotlin_di.common.`object`.UObject
 import com.squareup.kotlinpoet.*
 
 class DependencyWrapperFile(packageName: String, private val fn: KSFunctionDeclaration) : IFile(packageName, "${fn.simpleName}Wrapper") {
@@ -10,7 +10,7 @@ class DependencyWrapperFile(packageName: String, private val fn: KSFunctionDecla
         val packageName = fn.packageName.toString()
         val name = fn.simpleName.toString()
         return file.apply {
-            addImport("com.kotlin_di.ioc", "cast")
+            addImport("com.github.kotlin_di.ioc", "cast")
             addImport(packageName, name)
             addType(
                 TypeSpec.classBuilder("${fn.simpleName}Wrapper").apply {
@@ -19,7 +19,7 @@ class DependencyWrapperFile(packageName: String, private val fn: KSFunctionDecla
                             addParameter("obj", UObject::class)
                         }.build()
                     )
-                    addSuperinterface(ClassName("com.kotlin_di.ioc", "Dependency"))
+                    addSuperinterface(ClassName("com.github.kotlin_di.ioc", "Dependency"))
                     addFunction(
                         FunSpec.builder("invoke").apply {
                             addModifiers(KModifier.OVERRIDE)

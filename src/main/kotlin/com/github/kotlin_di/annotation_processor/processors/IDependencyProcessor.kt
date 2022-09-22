@@ -1,10 +1,10 @@
-package com.kotlin_di.annotation_processor.processors
+package com.github.kotlin_di.annotation_processor.processors
 
+import com.github.kotlin_di.annotation_processor.files.MainFile
+import com.github.kotlin_di.common.annotations.IDependency
+import com.github.kotlin_di.resolve
 import com.google.devtools.ksp.symbol.*
 import com.google.devtools.ksp.validate
-import com.kotlin_di.annotation_processor.files.MainFile
-import com.kotlin_di.common.annotations.IDependency
-import com.kotlin_di.resolve
 import com.squareup.kotlinpoet.ksp.toClassName
 
 class IDependencyProcessor() : IProcessor(IDependency::class) {

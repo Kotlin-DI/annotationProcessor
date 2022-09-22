@@ -1,13 +1,13 @@
-package com.kotlin_di.annotation_processor.processors
+package com.github.kotlin_di.annotation_processor.processors
 
+import com.github.kotlin_di.annotation_processor.files.DTOWrapperFile
+import com.github.kotlin_di.common.annotations.DTO
+import com.github.kotlin_di.resolve
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSVisitorVoid
 import com.google.devtools.ksp.validate
-import com.kotlin_di.annotation_processor.files.DTOWrapperFile
-import com.kotlin_di.common.annotations.DTO
-import com.kotlin_di.resolve
 import com.squareup.kotlinpoet.ksp.toClassName
 
 class DataClassProcessor : IProcessor(DTO::class) {
