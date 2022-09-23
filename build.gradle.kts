@@ -42,8 +42,8 @@ val kotlinPoetVersion: String by project
 val kspVersion: String by project
 
 dependencies {
-    implementation("com.github.Kotlin-DI:common:0.0.3")
-    implementation("com.github.Kotlin-DI:ioc:0.0.3")
+    implementation("com.github.Kotlin-DI:common:0.0.4")
+    implementation("com.github.Kotlin-DI:ioc:0.0.4")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     implementation("com.squareup:kotlinpoet:$kotlinPoetVersion")
