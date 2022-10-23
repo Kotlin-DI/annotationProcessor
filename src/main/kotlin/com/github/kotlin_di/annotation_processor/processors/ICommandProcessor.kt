@@ -1,27 +1,21 @@
 package com.github.kotlin_di.annotation_processor.processors
 
-import com.github.kotlin_di.annotation_processor.files.DTOWrapperFile
 import com.github.kotlin_di.annotation_processor.files.Files
-import com.github.kotlin_di.common.annotations.DTO
+import com.github.kotlin_di.common.annotations.ICommand
 import com.github.kotlin_di.resolve
 import com.google.devtools.ksp.symbol.KSAnnotated
-import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSDeclaration
+import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.google.devtools.ksp.symbol.KSVisitorVoid
 import com.google.devtools.ksp.validate
-import com.squareup.kotlinpoet.ksp.toClassName
 
-class DataClassProcessor : IProcessor(DTO::class) {
+class ICommandProcessor : IProcessor(ICommand::class) {
 
     private inner class Visitor : KSVisitorVoid() {
 
-        override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) {
-
-            val name = classDeclaration.toClassName()
-            val file: DTOWrapperFile = resolve(Files.DTOWrapper, name)
-            classDeclaration.getAllProperties().forEach {
-                file.addProperty(it)
-            }
+        override fun visitFunctionDeclaration(function: KSFunctionDeclaration, data: Unit) {
+            val file = resolve(Files.CommandWrapper, function)
+            file.wrapper
         }
     }
 

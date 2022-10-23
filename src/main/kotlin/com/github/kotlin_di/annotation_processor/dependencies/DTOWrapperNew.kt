@@ -2,15 +2,12 @@ package com.github.kotlin_di.annotation_processor.dependencies
 
 import com.github.kotlin_di.annotation_processor.files.DTOWrapperFile
 import com.github.kotlin_di.annotation_processor.files.Files
-import com.github.kotlin_di.annotation_processor.files.IFile
-import com.github.kotlin_di.ioc.Dependency
-import com.github.kotlin_di.ioc.cast
+import com.github.kotlin_di.common.types.Dependency
 import com.squareup.kotlinpoet.ClassName
 
-class DTOWrapperNew(private val container: Files) : Dependency {
+class DTOWrapperNew(private val container: Files) : Dependency<ClassName, DTOWrapperFile> {
 
-    override fun invoke(args: Array<out Any>): IFile {
-        val className: ClassName = cast(args[0])
+    override fun invoke(className: ClassName): DTOWrapperFile {
         return container.file("${className.simpleName}Wrapper") { DTOWrapperFile(it, className) }
     }
 }
