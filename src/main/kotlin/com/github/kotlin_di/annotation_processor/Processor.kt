@@ -21,8 +21,11 @@ class Processor(
     init {
         val group = options["project.group"]!!
         val name = options["project.name"]!!
-        files = Files("$group.generated")
-        files.dependencies(name, logger)
+        val version = options["project.version"]!!
+        val keysName = options["keysFile"] ?: "Keys"
+        val pluginName = options["pluginFile"] ?: "Plugin"
+        files = Files("$group.$name")
+        files.dependencies(keysName, pluginName, version, logger)
         processors = processors()
     }
 

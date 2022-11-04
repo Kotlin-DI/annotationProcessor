@@ -4,12 +4,11 @@ import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.toTypeName
 
-class CommandWrapperFile(packageName: String, private val fn: KSFunctionDeclaration) : IFile(packageName, "${fn.simpleName.asString()}Wrapper") {
+class CommandWrapperFile(packageName: String, private val fn: KSFunctionDeclaration, private val name: String) : IFile(packageName, name) {
 
     private val fnPackageName = fn.packageName.asString()
     private val fnName = fn.simpleName.asString()
-    private val wrapperName = "${fnName}Wrapper"
-    val wrapper = ClassName(packageName, wrapperName)
+    val wrapper = ClassName(packageName, name)
     private val props = mutableListOf<PropertySpec.Builder>()
 
     override fun build(file: FileSpec.Builder): FileSpec {
@@ -18,13 +17,13 @@ class CommandWrapperFile(packageName: String, private val fn: KSFunctionDeclarat
         return file.apply {
             addImport(fnPackageName, fnName)
             addType(
-                TypeSpec.classBuilder(wrapperName).apply {
+                TypeSpec.classBuilder(name).apply {
                     addSuperinterface(ClassName("com.github.kotlin_di.common.command", "Command"))
                     primaryConstructor(
                         FunSpec.constructorBuilder().apply {
                             params.forEachIndexed { i, p ->
                                 val pName = p.name!!.getShortName()
-                                val pType = p.type.resolve().toTypeName()
+                                val pType = p.type.toTypeName()
                                 addParameter(pName, pType)
                                 props.add(
                                     PropertySpec.builder(

@@ -3,6 +3,8 @@ package com.github.kotlin_di.annotation_processor.processors
 import com.github.kotlin_di.annotation_processor.files.Files
 import com.github.kotlin_di.common.annotations.ICommand
 import com.github.kotlin_di.resolve
+import com.google.devtools.ksp.KspExperimental
+import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
@@ -13,8 +15,10 @@ class ICommandProcessor : IProcessor(ICommand::class) {
 
     private inner class Visitor : KSVisitorVoid() {
 
+        @OptIn(KspExperimental::class)
         override fun visitFunctionDeclaration(function: KSFunctionDeclaration, data: Unit) {
-            val file = resolve(Files.CommandWrapper, function)
+            val name = function.getAnnotationsByType(ICommand::class).first().name
+            val file = resolve(Files.CommandWrapper, function to name)
             file.wrapper
         }
     }

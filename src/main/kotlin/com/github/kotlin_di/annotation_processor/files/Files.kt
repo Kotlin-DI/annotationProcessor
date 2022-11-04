@@ -13,8 +13,9 @@ class Files(private val group: String) {
         val Main = Key<Unit, MainFile>("Files.Main")
         val Keys = Key<Unit, KeysFile>("Files.Keys")
         val DTOWrapper = Key<ClassName, DTOWrapperFile>("Files.DTOWrapper")
-        val CommandWrapper = Key<KSFunctionDeclaration, CommandWrapperFile>("Files.CommandWrapper")
+        val CommandWrapper = Key<Pair<KSFunctionDeclaration, String>, CommandWrapperFile>("Files.CommandWrapper")
         val Logger = Key<Unit, KSPLogger>("Files.Logger")
+        val Version = Key<Unit, String>("Files.Version")
     }
 
     private val dict = hashMapOf<String, IFile>()

@@ -2,7 +2,9 @@ package com.github.kotlin_di.annotation_processor.files
 
 import com.github.kotlin_di.common.plugins.IPlugin
 import com.github.kotlin_di.ioc.IoC
+import com.github.kotlin_di.resolve
 import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 
 class MainFile(packageName: String, private val className: String) : IFile(packageName, className) {
 
@@ -28,18 +30,29 @@ class MainFile(packageName: String, private val className: String) : IFile(packa
     }
 
     override fun build(file: FileSpec.Builder): FileSpec {
+        val keys = resolve(Files.Keys).name
         return file.apply {
             importList.forEach {
                 addImport(it.packageName, it.simpleName)
             }
             addType(
                 TypeSpec.classBuilder(className).apply {
-                    addSuperinterface(IPlugin::class)
+                    addSuperinterface(
+                        IPlugin::class
+                            .asTypeName()
+                            .parameterizedBy(keys)
+                    )
                     addFunction(
                         FunSpec.builder("load").apply {
                             addModifiers(KModifier.OVERRIDE)
                             addStatement(loadScript)
                         }.build()
+                    )
+                    addProperty(
+                        PropertySpec.builder("version", String::class, KModifier.OVERRIDE)
+                            .apply {
+                                initializer("\"${resolve(Files.Version)}\"")
+                            }.build()
                     )
                 }.build()
             )
