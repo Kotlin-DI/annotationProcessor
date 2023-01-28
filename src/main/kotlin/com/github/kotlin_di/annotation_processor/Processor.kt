@@ -19,6 +19,7 @@ class Processor(
     private val processors: List<IProcessor>
 
     init {
+        println(options)
         val group = options["project.group"]!!
         val name = options["project.name"]!!
         val version = options["project.version"]!!

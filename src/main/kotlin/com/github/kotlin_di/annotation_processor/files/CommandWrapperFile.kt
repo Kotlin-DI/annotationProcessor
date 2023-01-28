@@ -1,5 +1,6 @@
 package com.github.kotlin_di.annotation_processor.files
 
+import com.github.kotlin_di.common.interfaces.Command
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.toTypeName
@@ -18,7 +19,7 @@ class CommandWrapperFile(packageName: String, private val fn: KSFunctionDeclarat
             addImport(fnPackageName, fnName)
             addType(
                 TypeSpec.classBuilder(name).apply {
-                    addSuperinterface(ClassName("com.github.kotlin_di.common.command", "Command"))
+                    addSuperinterface(Command::class)
                     primaryConstructor(
                         FunSpec.constructorBuilder().apply {
                             params.forEachIndexed { i, p ->
