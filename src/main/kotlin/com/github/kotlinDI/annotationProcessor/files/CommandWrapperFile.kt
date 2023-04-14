@@ -1,11 +1,14 @@
-package com.github.kotlin_di.annotation_processor.files
+package com.github.kotlinDI.annotationProcessor.files
 
-import com.github.kotlin_di.common.interfaces.Command
+import com.github.kotlinDI.common.interfaces.Command
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.toTypeName
 
-class CommandWrapperFile(packageName: String, private val fn: KSFunctionDeclaration, private val name: String) : IFile(packageName, name) {
+class CommandWrapperFile(packageName: String, private val fn: KSFunctionDeclaration, private val name: String) : IFile(
+    packageName,
+    name
+) {
 
     private val fnPackageName = fn.packageName.asString()
     private val fnName = fn.simpleName.asString()

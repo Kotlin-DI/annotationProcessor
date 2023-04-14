@@ -1,4 +1,4 @@
-package com.github.kotlin_di.annotation_processor.processors
+package com.github.kotlinDI.annotationProcessor.processors
 
 fun processors(): List<IProcessor> {
     return listOf(

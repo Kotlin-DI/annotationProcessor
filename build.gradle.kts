@@ -11,12 +11,17 @@ plugins {
     java
     `java-library`
     `maven-publish`
-    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
-    id("org.jetbrains.dokka") version "1.7.20"
+    id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
+    id("org.jetbrains.dokka")
     id("me.qoomon.git-versioning") version "6.3.0"
 }
 
-group = "com.github.kotlin_di"
+ktlint {
+    version.set("0.48.2")
+    outputToConsole.set(true)
+}
+
+group = "com.github.kotlinDI"
 version = "0.0.0-SNAPSHOT"
 gitVersioning.apply {
     refs {
@@ -51,10 +56,6 @@ dependencies {
     implementation("com.squareup:kotlinpoet:$kotlinPoetVersion")
     implementation("com.squareup:kotlinpoet-ksp:$kotlinPoetVersion")
     implementation("com.google.devtools.ksp:symbol-processing-api:$kotlinVersion-$kspVersion")
-}
-
-ktlint {
-    disabledRules.set(setOf("no-wildcard-imports"))
 }
 
 tasks {

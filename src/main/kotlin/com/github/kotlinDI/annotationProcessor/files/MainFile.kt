@@ -1,16 +1,16 @@
-package com.github.kotlin_di.annotation_processor.files
+package com.github.kotlinDI.annotationProcessor.files
 
-import com.github.kotlin_di.common.interfaces.Command
-import com.github.kotlin_di.common.plugins.IPlugin
-import com.github.kotlin_di.ioc.IoC
-import com.github.kotlin_di.resolve
+import com.github.kotlinDI.common.interfaces.Command
+import com.github.kotlinDI.common.plugins.IPlugin
+import com.github.kotlinDI.ioc.IoC
+import com.github.kotlinDI.resolve
 import com.squareup.kotlinpoet.*
 
 class MainFile(packageName: String, private val className: String) : IFile(packageName, className) {
 
     private val importList = mutableListOf(
-        ClassName("com.github.kotlin_di", "resolve"),
-        ClassName("com.github.kotlin_di.common.types", "by"),
+        ClassName("com.github.kotlinDI", "resolve"),
+        ClassName("com.github.kotlinDI.common.types", "by"),
         Command::class.asClassName(),
         IoC::class.asClassName()
     )

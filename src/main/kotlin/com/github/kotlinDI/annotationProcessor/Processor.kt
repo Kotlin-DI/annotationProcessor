@@ -1,9 +1,9 @@
-package com.github.kotlin_di.annotation_processor
+package com.github.kotlinDI.annotationProcessor
 
-import com.github.kotlin_di.annotation_processor.files.Files
-import com.github.kotlin_di.annotation_processor.files.dependencies
-import com.github.kotlin_di.annotation_processor.processors.IProcessor
-import com.github.kotlin_di.annotation_processor.processors.processors
+import com.github.kotlinDI.annotationProcessor.files.Files
+import com.github.kotlinDI.annotationProcessor.files.dependencies
+import com.github.kotlinDI.annotationProcessor.processors.IProcessor
+import com.github.kotlinDI.annotationProcessor.processors.processors
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.*
@@ -11,7 +11,7 @@ import com.google.devtools.ksp.symbol.*
 class Processor(
     private val options: Map<String, String>,
     private val logger: KSPLogger,
-    private val codeGenerator: CodeGenerator,
+    private val codeGenerator: CodeGenerator
 ) : SymbolProcessor {
 
     lateinit var dependencies: Dependencies

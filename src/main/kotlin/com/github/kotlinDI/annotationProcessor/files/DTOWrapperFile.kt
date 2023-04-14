@@ -1,11 +1,14 @@
-package com.github.kotlin_di.annotation_processor.files
+package com.github.kotlinDI.annotationProcessor.files
 
-import com.github.kotlin_di.common.interfaces.UObject
+import com.github.kotlinDI.common.interfaces.UObject
 import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.toTypeName
 
-class DTOWrapperFile(packageName: String, private val className: ClassName) : IFile(packageName, "${className.simpleName}Wrapper") {
+class DTOWrapperFile(packageName: String, private val className: ClassName) : IFile(
+    packageName,
+    "${className.simpleName}Wrapper"
+) {
 
     private val properties: MutableList<PropertySpec.Builder> = mutableListOf()
     private val methods: MutableList<FunSpec.Builder> = mutableListOf()
@@ -35,7 +38,7 @@ class DTOWrapperFile(packageName: String, private val className: ClassName) : IF
 
     override fun build(file: FileSpec.Builder): FileSpec {
         return file.apply {
-            addImport("com.github.kotlin_di", "resolve")
+            addImport("com.github.kotlinDI", "resolve")
             addType(
                 TypeSpec.classBuilder("${className.simpleName}Wrapper").apply {
                     primaryConstructor(
@@ -43,7 +46,9 @@ class DTOWrapperFile(packageName: String, private val className: ClassName) : IF
                             addParameter("obj", UObject::class)
                         }.build()
                     )
-                    addProperty(PropertySpec.builder("obj", UObject::class, KModifier.PRIVATE).initializer("obj").build())
+                    addProperty(
+                        PropertySpec.builder("obj", UObject::class, KModifier.PRIVATE).initializer("obj").build()
+                    )
                     addSuperinterface(className)
                     methods.forEach {
                         addFunction(it.build())
