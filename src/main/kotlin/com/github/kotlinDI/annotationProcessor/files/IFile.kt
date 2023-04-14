@@ -1,4 +1,4 @@
-package com.github.kotlin_di.annotation_processor.files
+package com.github.kotlinDI.annotationProcessor.files
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies

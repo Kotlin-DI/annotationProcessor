@@ -1,8 +1,8 @@
-package com.github.kotlin_di.annotation_processor.processors
+package com.github.kotlinDI.annotationProcessor.processors
 
-import com.github.kotlin_di.annotation_processor.files.Files
-import com.github.kotlin_di.common.annotations.ICommand
-import com.github.kotlin_di.resolve
+import com.github.kotlinDI.annotationProcessor.files.Files
+import com.github.kotlinDI.common.annotations.ICommand
+import com.github.kotlinDI.resolve
 import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.symbol.KSAnnotated

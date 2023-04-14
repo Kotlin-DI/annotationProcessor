@@ -1,10 +1,10 @@
-package com.github.kotlin_di.annotation_processor.files
+package com.github.kotlinDI.annotationProcessor.files
 
-import com.github.kotlin_di.annotation_processor.dependencies.CommandWrapperNew
-import com.github.kotlin_di.annotation_processor.dependencies.DTOWrapperNew
-import com.github.kotlin_di.common.types.by
-import com.github.kotlin_di.ioc.IoC
-import com.github.kotlin_di.resolve
+import com.github.kotlinDI.annotationProcessor.dependencies.CommandWrapperNew
+import com.github.kotlinDI.annotationProcessor.dependencies.DTOWrapperNew
+import com.github.kotlinDI.common.types.by
+import com.github.kotlinDI.ioc.IoC
+import com.github.kotlinDI.resolve
 import com.google.devtools.ksp.processing.KSPLogger
 
 fun Files.dependencies(keys: String, plugin: String, version: String, logger: KSPLogger) {

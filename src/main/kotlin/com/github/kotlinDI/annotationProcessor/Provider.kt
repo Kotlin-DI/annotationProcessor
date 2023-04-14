@@ -1,4 +1,4 @@
-package com.github.kotlin_di.annotation_processor
+package com.github.kotlinDI.annotationProcessor
 
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment

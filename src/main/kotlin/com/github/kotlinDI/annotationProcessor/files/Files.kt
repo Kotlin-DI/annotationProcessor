@@ -1,6 +1,6 @@
-package com.github.kotlin_di.annotation_processor.files
+package com.github.kotlinDI.annotationProcessor.files
 
-import com.github.kotlin_di.common.types.Key
+import com.github.kotlinDI.common.types.Key
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger

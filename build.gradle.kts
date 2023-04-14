@@ -1,16 +1,27 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val kotlinVersion: String by project
+val commonVersion: String by project
+val iocVersion: String by project
+val kotlinPoetVersion: String by project
+val kspVersion: String by project
+
 plugins {
-    kotlin("jvm") version "1.6.21"
+    kotlin("jvm")
     java
     `java-library`
     `maven-publish`
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
-    id("org.jetbrains.dokka") version "1.6.21"
+    id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
+    id("org.jetbrains.dokka")
     id("me.qoomon.git-versioning") version "6.3.0"
 }
 
-group = "com.github.kotlin_di"
+ktlint {
+    version.set("0.48.2")
+    outputToConsole.set(true)
+}
+
+group = "com.github.kotlinDI"
 version = "0.0.0-SNAPSHOT"
 gitVersioning.apply {
     refs {
@@ -37,31 +48,21 @@ repositories {
     mavenLocal()
 }
 
-val kotlinVersion: String by project
-val kotlinPoetVersion: String by project
-val kspVersion: String by project
-
 dependencies {
-    implementation("com.github.Kotlin-DI:common:0.0.6")
-    implementation("com.github.Kotlin-DI:ioc:0.0.6")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("com.github.Kotlin-DI:common:$commonVersion")
+    implementation("com.github.Kotlin-DI:ioc:$iocVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     implementation("com.squareup:kotlinpoet:$kotlinPoetVersion")
     implementation("com.squareup:kotlinpoet-ksp:$kotlinPoetVersion")
     implementation("com.google.devtools.ksp:symbol-processing-api:$kotlinVersion-$kspVersion")
-    testImplementation(platform("org.junit:junit-bom:5.9.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
-
-ktlint {
-    disabledRules.set(setOf("no-wildcard-imports"))
 }
 
 tasks {
     withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict", "-opt-in=kotlin.RequiresOptIn")
-            jvmTarget = "11"
+            jvmTarget = "17"
         }
         dependsOn("ktlintFormat")
     }
@@ -70,43 +71,6 @@ tasks {
         testLogging {
             events("passed", "skipped", "failed")
         }
-    }
-
-    register<Copy>("copyGitHooks") {
-        description = "Copy git hooks from scripts/git-hooks"
-        group = "git-hooks"
-        from("$rootDir/scripts/git-hooks/") {
-            include("**/*.sh")
-            rename("(.*).sh", "$1")
-        }
-        into("$rootDir/.git/hooks")
-    }
-
-    register<Exec>("installGitHooks") {
-        description = "Installs the pre-commit git hooks from scripts/git-hooks."
-        group = "git-hooks"
-        onlyIf {
-            !org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS)
-        }
-        dependsOn(named("copyGitHooks"))
-
-        workingDir(rootDir)
-        commandLine("chmod")
-        args("-R", "+x", ".git/hooks/")
-
-        doLast {
-            logger.info("Git hooks installed successfully.")
-        }
-    }
-
-    register<Delete>("deleteGitHooks") {
-        group = "git-hooks"
-        description = "Delete the pre-commit git hooks."
-        delete(fileTree(".git/hooks/"))
-    }
-
-    afterEvaluate {
-        tasks["clean"].dependsOn(tasks.named("installGitHooks"))
     }
 }
 

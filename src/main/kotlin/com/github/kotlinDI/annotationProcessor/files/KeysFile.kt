@@ -1,8 +1,8 @@
-package com.github.kotlin_di.annotation_processor.files
+package com.github.kotlinDI.annotationProcessor.files
 
-import com.github.kotlin_di.common.plugins.KeyDefinition
-import com.github.kotlin_di.common.types.Key
-import com.github.kotlin_di.resolve
+import com.github.kotlinDI.common.plugins.KeyDefinition
+import com.github.kotlinDI.common.types.Key
+import com.github.kotlinDI.resolve
 import com.google.devtools.ksp.symbol.KSType
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
@@ -15,11 +15,7 @@ class KeysFile(private val packageName: String, private val className: String) :
     val keysList = mutableListOf<String>()
 
     fun addKey(key: String, params: KSType, returns: KSType?, doc: String?): Pair<ClassName, String> {
-        val r = if (returns == null) {
-            Unit::class.asTypeName()
-        } else {
-            returns.toTypeName()
-        }
+        val r = returns?.toTypeName() ?: Unit::class.asTypeName()
         val name = key
             .uppercase(Locale.getDefault())
             .replace(" ", "_")
