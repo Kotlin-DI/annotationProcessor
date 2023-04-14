@@ -14,7 +14,7 @@ class KeysFile(private val packageName: String, private val className: String) :
     private val keys = mutableListOf<PropertySpec.Builder>()
     val keysList = mutableListOf<String>()
 
-    fun addKey(key: String, params: KSType, returns: KSType?, doc: String?): Pair<ClassName, String> {
+    fun addKey(key: String, params: TypeName, returns: KSType?, doc: String?): Pair<ClassName, String> {
         val r = returns?.toTypeName() ?: Unit::class.asTypeName()
         val name = key
             .uppercase(Locale.getDefault())
@@ -26,7 +26,7 @@ class KeysFile(private val packageName: String, private val className: String) :
             PropertySpec.builder(
                 name,
                 Key::class.asClassName().parameterizedBy(
-                    params.toTypeName(),
+                    params,
                     r
                 )
             ).apply {

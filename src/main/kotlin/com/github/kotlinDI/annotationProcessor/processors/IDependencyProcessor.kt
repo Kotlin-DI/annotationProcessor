@@ -10,6 +10,7 @@ import com.google.devtools.ksp.symbol.*
 import com.google.devtools.ksp.validate
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.ksp.toClassName
+import com.squareup.kotlinpoet.ksp.toTypeName
 
 class IDependencyProcessor() : IProcessor(IDependency::class) {
 
@@ -21,7 +22,7 @@ class IDependencyProcessor() : IProcessor(IDependency::class) {
             val name = classDeclaration.toClassName()
             val annotation = classDeclaration.getAnnotationsByType(IDependency::class).first()
             val invoke = classDeclaration.getDeclaredFunctions().first { it.simpleName.getShortName() == "invoke" }
-            val params = invoke.parameters[0].type.resolve()
+            val params = invoke.parameters[0].type.toTypeName()
             val returnType = invoke.returnType?.resolve()
             val key = fileKeys.addKey(annotation.key, params, returnType, classDeclaration.docString)
             fileMain.addDependencyClass(key, name)
@@ -33,7 +34,7 @@ class IDependencyProcessor() : IProcessor(IDependency::class) {
             val fileKeys = resolve(Files.Keys)
             val name = ClassName(function.packageName.asString(), function.simpleName.asString())
             val annotation = function.getAnnotationsByType(IDependency::class).first()
-            val params = function.parameters[0].type.resolve()
+            val params = function.parameters[0].type.toTypeName()
             val returnType = function.returnType?.let { it.resolve() }
             val key = fileKeys.addKey(annotation.key, params, returnType, function.docString)
             fileMain.addDependencyFun(key, name)
