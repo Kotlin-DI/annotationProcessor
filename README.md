@@ -1,2 +1,2 @@
-[![](https://jitpack.io/v/Kotlin-DI/annotation-processor.svg)](https://jitpack.io/#Kotlin-DI/annotation-processor)
-# annotation-processor
+[![](https://jitpack.io/v/Kotlin-DI/annotationProcessor.svg)](https://jitpack.io/#Kotlin-DI/annotationProcessor)
+# annotationProcessor
